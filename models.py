@@ -1,5 +1,4 @@
 #https://docs.sqlalchemy.org/en/14/orm/quickstart.html
-#from turtle import right
 from sqlalchemy import Column
 from sqlalchemy import ForeignKey
 from sqlalchemy import Integer
@@ -10,12 +9,6 @@ from sqlalchemy.orm import relationship
 from sqlalchemy import Table
 
 Base = declarative_base()
-
-#class Base2():
-#    #__tablename__ = "dummy"
-#    def __str__(self):
-#        return str(self.__class__) + ": " + str(self.__dict__)
-
 
 class Usuario(Base):
     __tablename__="usuario"
@@ -53,26 +46,19 @@ class Orden(Base):
 
 from sqlalchemy import select
 
-
 def getUsuario(nom, session):
      stmt = select(Usuario).where(Usuario.nombre_usuario.in_([nom]))
      return session.scalars(stmt)
 
 def getDirecciones(usuarioO,sessioN):
-    #print(type(usuarioO.direcciones))
     return sessioN.scalars(select(Direccion).where(Direccion.referencia_usuario.in_([usuarioO.nombre_usuario])))
 
-#distrito es string
 def DireccionesDistrito(usuarioO, distritO,sessioN):
-    #return Direccion.query.filter(Direccion.referencia_usuario == usuarioO.nombre_usuario)
-    #return sessioN.scalars(select(Direccion).where(Direccion.referencia_usuario.in_([usuarioO.nombre_usuario])))# & Direccion.distrito == distrito))
     return sessioN.scalars(select(Direccion).where(Direccion.referencia_usuario.in_([usuarioO.nombre_usuario]))
     .where(Direccion.distrito == distritO))
 
-
 def coUsuarios(monto,usuarioS,sessio):
     ord = Orden(costo=monto,usuarios=usuarioS)
-    
     sessio.add(ord)
     sessio.commit
 
@@ -80,8 +66,6 @@ def Usarios(id_orden,sessio):
     sessio.scalars(select(Orden).where(Orden.id == id_orden))
 
 def UsuariosqueOrdenaron(id_orden,sessio):
-    #return sessio.scalars(select(association_table).where(association_table.right_id == id_orden)
-    #.join(Usuario).where(association_table.left_id==Usuario.nombre_usuario))
     objeto = sessio.scalars(select(Orden).where(Orden.id == id_orden))
     return objeto.first().usuarios
 

@@ -14,6 +14,7 @@ session = Session(engine)
 #from models import Base
 models.Base.metadata.create_all(engine)
 
+
 diego = models.Usuario(
          nombre_usuario="Daigo",
          #fullname="Spongebob Squarepants",
@@ -42,8 +43,8 @@ orden1 = models.Orden(
 session.add(orden1)
 session.commit()
 
+
 from models import Direccion, DireccionesDistrito, Usuario, coUsuarios, getDirecciones, getUsuario, mayorA
-#from sqlalchemy import select
 
 def test1():
 
@@ -68,8 +69,6 @@ def test1():
 
         for user in mayorA(40,session):
             print(user)
-        
-       
         
         print("penultimo")
 
