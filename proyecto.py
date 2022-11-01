@@ -11,7 +11,6 @@ engine = create_engine("sqlite+pysqlite:///:memory:", echo=True, future=True)
 from sqlalchemy.orm import Session
 session = Session(engine)
 
-#from models import Base
 models.Base.metadata.create_all(engine)
 
 
@@ -78,3 +77,15 @@ def test1():
         print("cierre")
 
 test1()
+
+
+@app.route("/direcciones/<string:user>")
+def direcciones(user):
+    usuarioB = getUsuario(user,session)
+    var = getDirecciones(usuarioB,session)
+    return ''.join(str(x) for x in var)
+
+
+@app.route("/")
+def hello_world():
+    return "<p>Hello, World!</p>"

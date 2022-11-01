@@ -27,7 +27,8 @@ class Direccion(Base):
     referencia_usuario = Column(String(30),ForeignKey("usuario.nombre_usuario"))
     
     def __str__(self):
-       return "str direccion"
+       return str(self.linea1) + str(self.distrito) 
+       
 
 association_table = Table(
     "association",
