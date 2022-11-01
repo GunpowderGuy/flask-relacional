@@ -82,13 +82,16 @@ test1()
 @app.route("/direcciones/<string:user>")
 def direcciones(user):
     usuarioB = getUsuario(user,session)
-    
-    var1 = "d"
-
-    for user in usuarioB:
-        var1 = user
-    
+    var1 = next(iter(usuarioB))
     var = getDirecciones(var1,session)
+    return ''.join(str(x) for x in var)
+
+
+@app.route("/direccionesdistrito/<string:user>/<string:district>")
+def direccionesdistrito(user,district):
+    usuarioB = getUsuario(user,session)
+    var1 = next(iter(usuarioB))
+    var = models.DireccionesDistrito(var1,district,session)
     return ''.join(str(x) for x in var)
 
 
