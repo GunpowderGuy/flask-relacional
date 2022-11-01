@@ -6,7 +6,7 @@ from flask import Flask
 app = Flask(__name__)
 
 from sqlalchemy import create_engine
-engine = create_engine("sqlite+pysqlite:///:memory:", echo=True, future=True)
+engine = create_engine("sqlite+pysqlite:///:memory:", echo=True, future=True,connect_args={'check_same_thread': False})
 
 from sqlalchemy.orm import Session
 session = Session(engine)
@@ -82,7 +82,13 @@ test1()
 @app.route("/direcciones/<string:user>")
 def direcciones(user):
     usuarioB = getUsuario(user,session)
-    var = getDirecciones(usuarioB,session)
+    
+    var1 = "d"
+
+    for user in usuarioB:
+        var1 = user
+    
+    var = getDirecciones(var1,session)
     return ''.join(str(x) for x in var)
 
 
