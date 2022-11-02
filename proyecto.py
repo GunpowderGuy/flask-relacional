@@ -102,9 +102,16 @@ from flask import Flask, render_template, request
 
 @app.route('/nuevaDireccion', methods=['POST'])
 def nuevaDireccion1():
-    #return render_template('shortenurl.html', shortcode=request.form['shortcode'])
-    
-    return str(request.form['nombref'])
+    #return str(request.form['nombref'])
+    obj = models.Direccion(
+        linea1 = request.form['direccion_linea1'],
+        distrito = request.form['direccion_distrito'],
+        referencia_usuario = request.form['nombref']
+    )
+    session.add(obj)
+    session.commit
+    return 'comiteado'
+
 
 @app.route('/nuevaDireccion', methods=['GET'])
 def nuevaDireccion():
