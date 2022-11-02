@@ -94,7 +94,19 @@ def direccionesdistrito(user,district):
     var = models.DireccionesDistrito(var1,district,session)
     return ''.join(str(x) for x in var)
 
-
 @app.route("/")
 def hello_world():
     return "<p>Hello, World!</p>"
+
+from flask import Flask, render_template, request
+
+@app.route('/nuevaDireccion', methods=['POST'])
+def nuevaDireccion1():
+    #return render_template('shortenurl.html', shortcode=request.form['shortcode'])
+    
+    return str(request.form['nombref'])
+
+@app.route('/nuevaDireccion', methods=['GET'])
+def nuevaDireccion():
+    #return render_template('shortenurl.html', shortcode=request.form['shortcode'])
+    return render_template('ingresarDireccion.html')
